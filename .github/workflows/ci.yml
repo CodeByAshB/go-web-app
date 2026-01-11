@@ -1,0 +1,57 @@
+name: Go Web App CI
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  AWS_REGION: ap-south-1
+  ECR_REGISTRY: 816954233585.dkr.ecr.ap-south-1.amazonaws.com
+  ECR_REPOSITORY: go-web-app
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Setup Go
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.22"
+
+      # 3. Build Go app
+      - name: Go build
+        working-directory: static
+        run: go build -v ./...
+
+      # 4. Run Go tests
+      - name: Go test
+        working-directory: static
+        run: go test ./...
+
+      # 5. Configure AWS credentials (IAM USER)
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      # 6. Login to Amazon ECR
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      # 7. Build and push Docker image
+      - name: Build and push Docker image
+        working-directory: static
+        run: |
+          IMAGE_TAG=${{ github.run_number }}
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
