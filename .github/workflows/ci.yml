@@ -7,7 +7,7 @@ on:
 
 env:
   AWS_REGION: ap-south-1
-  ECR_REGISTRY: 816954233585.dkr.ecr.ap-south-1.amazonaws.com
+  ECR_REGISTRY: public.ecr.aws/o9g6t1r4
   ECR_REPOSITORY: go-web-app
 
 jobs:
@@ -15,39 +15,27 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      # 1. Checkout code
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Setup Go
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
           go-version: "1.22"
 
-      # 3. Build Go app
       - name: Go build
         working-directory: static
         run: go build -v ./...
 
-      # 4. Run Go tests
       - name: Go test
         working-directory: static
         run: go test ./...
 
-      # 5. Configure AWS credentials (IAM USER)
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Login to Public ECR
+        run: |
+          aws ecr-public get-login-password --region us-east-1 \
+          | docker login --username AWS --password-stdin public.ecr.aws
 
-      # 6. Login to Amazon ECR
-      - name: Login to Amazon ECR
-        uses: aws-actions/amazon-ecr-login@v2
-
-      # 7. Build and push Docker image
       - name: Build and push Docker image
         working-directory: static
         run: |
@@ -55,9 +43,3 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
-      # 8. Deploy to STAGING using Helm (CD)
-      - name: Deploy to staging using Helm
-        run: |
-          helm upgrade --install go-web-app helm/go-web-app-chart \
-            --namespace staging \
-            --set image.tag=${{ github.run_number }}
