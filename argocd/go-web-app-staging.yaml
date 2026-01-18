@@ -25,3 +25,10 @@ spec:
     syncOptions:
       - CreateNamespace=true
 
+  
+  ignoreDifferences:
+    - group: networking.k8s.io
+      kind: Ingress
+      jsonPointers:
+        - /status
+
