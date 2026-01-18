@@ -2,7 +2,7 @@ replicaCount: 2
 
 image:
   repository: public.ecr.aws/o9g6t1r4/go-web-app
-  tag: "6"
+  tag: "3"              # ❗ EMPTY by default
   pullPolicy: Always
 
 service:
@@ -13,6 +13,4 @@ service:
 ingress:
   enabled: true
   className: nginx
-  host: ""
-  path: /
 
