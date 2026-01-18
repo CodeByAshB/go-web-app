@@ -1,0 +1,238 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{},"name":"go-web-app-staging","namespace":"argocd"},"spec":{"destination":{"namespace":"staging","server":"https://kubernetes.default.svc"},"ignoreDifferences":[{"group":"networking.k8s.io","jsonPointers":["/status"],"kind":"Ingress"}],"project":"default","source":{"helm":{"valueFiles":["values-staging.yaml"]},"path":"helm/go-web-app-chart","repoURL":"https://github.com/CodeByAshB/go-web-app.git","targetRevision":"main"},"syncPolicy":{"automated":{"prune":true,"selfHeal":true},"syncOptions":["CreateNamespace=true"]}}}
+  creationTimestamp: "2026-01-18T07:10:18Z"
+  generation: 196
+  name: go-web-app-staging
+  namespace: argocd
+  resourceVersion: "66191"
+  uid: 5cd7fb52-423d-4082-9b14-9a4e437b3f32
+spec:
+  destination:
+    namespace: staging
+    server: https://kubernetes.default.svc
+  ignoreDifferences:
+  - group: networking.k8s.io
+    jsonPointers:
+    - /status
+    kind: Ingress
+  project: default
+  source:
+    helm:
+      valueFiles:
+      - values-staging.yaml
+    path: helm/go-web-app-chart
+    repoURL: https://github.com/CodeByAshB/go-web-app.git
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+status:
+  controllerNamespace: argocd
+  health:
+    lastTransitionTime: "2026-01-18T07:52:30Z"
+    status: Progressing
+  history:
+  - deployStartedAt: "2026-01-18T07:10:44Z"
+    deployedAt: "2026-01-18T07:10:44Z"
+    id: 0
+    initiatedBy:
+      username: admin
+    revision: c4c05dda542c3ed805d05bfa625b851c4431905e
+    source:
+      helm:
+        valueFiles:
+        - values-staging.yaml
+      path: helm/go-web-app-chart
+      repoURL: https://github.com/CodeByAshB/go-web-app.git
+      targetRevision: main
+  - deployStartedAt: "2026-01-18T07:20:57Z"
+    deployedAt: "2026-01-18T07:20:57Z"
+    id: 1
+    initiatedBy:
+      automated: true
+    revision: 576a984348a0d172a7ce6a6a402777cb0934e81b
+    source:
+      helm:
+        valueFiles:
+        - values-staging.yaml
+        - values.yaml
+      path: helm/go-web-app-chart
+      repoURL: https://github.com/CodeByAshB/go-web-app.git
+      targetRevision: main
+  - deployStartedAt: "2026-01-18T07:52:30Z"
+    deployedAt: "2026-01-18T07:52:31Z"
+    id: 2
+    initiatedBy:
+      automated: true
+    revision: d0232a69036a8af9e307a65bde66f7b98ffa2053
+    source:
+      helm:
+        valueFiles:
+        - values-staging.yaml
+      path: helm/go-web-app-chart
+      repoURL: https://github.com/CodeByAshB/go-web-app.git
+      targetRevision: main
+  - deployStartedAt: "2026-01-18T08:00:19Z"
+    deployedAt: "2026-01-18T08:00:20Z"
+    id: 3
+    initiatedBy:
+      automated: true
+    revision: aa1ec6e112b6bd3298586fd0a50b176e1eaa6eb0
+    source:
+      helm:
+        valueFiles:
+        - values-staging.yaml
+      path: helm/go-web-app-chart
+      repoURL: https://github.com/CodeByAshB/go-web-app.git
+      targetRevision: main
+  - deployStartedAt: "2026-01-18T17:05:09Z"
+    deployedAt: "2026-01-18T17:05:10Z"
+    id: 4
+    initiatedBy:
+      automated: true
+    revision: 56b3d48e1a651f522edfe531f9d990380b7f85a2
+    source:
+      helm:
+        valueFiles:
+        - values-staging.yaml
+      path: helm/go-web-app-chart
+      repoURL: https://github.com/CodeByAshB/go-web-app.git
+      targetRevision: main
+  - deployStartedAt: "2026-01-18T17:34:57Z"
+    deployedAt: "2026-01-18T17:34:58Z"
+    id: 5
+    initiatedBy:
+      automated: true
+    revision: 6e16b15bf56f0282e1cbece64e87b68ace5fce13
+    source:
+      helm:
+        valueFiles:
+        - values-staging.yaml
+      path: helm/go-web-app-chart
+      repoURL: https://github.com/CodeByAshB/go-web-app.git
+      targetRevision: main
+  - deployStartedAt: "2026-01-18T17:34:59Z"
+    deployedAt: "2026-01-18T17:35:00Z"
+    id: 6
+    initiatedBy:
+      automated: true
+    revision: 4800b800063e91a7f4165d8e89096753e8256324
+    source:
+      helm:
+        valueFiles:
+        - values-staging.yaml
+      path: helm/go-web-app-chart
+      repoURL: https://github.com/CodeByAshB/go-web-app.git
+      targetRevision: main
+  operationState:
+    finishedAt: "2026-01-18T17:35:00Z"
+    message: successfully synced (all tasks run)
+    operation:
+      initiatedBy:
+        automated: true
+      retry:
+        limit: 5
+      sync:
+        prune: true
+        revision: 4800b800063e91a7f4165d8e89096753e8256324
+        source:
+          helm:
+            valueFiles:
+            - values-staging.yaml
+          path: helm/go-web-app-chart
+          repoURL: https://github.com/CodeByAshB/go-web-app.git
+          targetRevision: main
+        syncOptions:
+        - CreateNamespace=true
+    phase: Succeeded
+    startedAt: "2026-01-18T17:34:59Z"
+    syncResult:
+      resources:
+      - group: ""
+        hookPhase: Running
+        kind: Service
+        message: service/go-web-app-service configured
+        name: go-web-app-service
+        namespace: staging
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apps
+        hookPhase: Running
+        images:
+        - public.ecr.aws/o9g6t1r4/go-web-app:11
+        kind: Deployment
+        message: deployment.apps/go-web-app unchanged
+        name: go-web-app
+        namespace: staging
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: networking.k8s.io
+        hookPhase: Running
+        kind: Ingress
+        message: ingress.networking.k8s.io/go-web-app-ingress unchanged
+        name: go-web-app-ingress
+        namespace: staging
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      revision: 4800b800063e91a7f4165d8e89096753e8256324
+      source:
+        helm:
+          valueFiles:
+          - values-staging.yaml
+        path: helm/go-web-app-chart
+        repoURL: https://github.com/CodeByAshB/go-web-app.git
+        targetRevision: main
+  reconciledAt: "2026-01-18T17:39:50Z"
+  resourceHealthSource: appTree
+  resources:
+  - kind: Service
+    name: go-web-app-service
+    namespace: staging
+    status: Synced
+    version: v1
+  - group: apps
+    kind: Deployment
+    name: go-web-app
+    namespace: staging
+    status: Synced
+    version: v1
+  - group: networking.k8s.io
+    kind: Ingress
+    name: go-web-app-ingress
+    namespace: staging
+    status: Synced
+    version: v1
+  sourceHydrator: {}
+  sourceType: Helm
+  summary:
+    images:
+    - public.ecr.aws/o9g6t1r4/go-web-app:11
+  sync:
+    comparedTo:
+      destination:
+        namespace: staging
+        server: https://kubernetes.default.svc
+      ignoreDifferences:
+      - group: networking.k8s.io
+        jsonPointers:
+        - /status
+        kind: Ingress
+      source:
+        helm:
+          valueFiles:
+          - values-staging.yaml
+        path: helm/go-web-app-chart
+        repoURL: https://github.com/CodeByAshB/go-web-app.git
+        targetRevision: main
+    revision: 4800b800063e91a7f4165d8e89096753e8256324
+    status: Synced
