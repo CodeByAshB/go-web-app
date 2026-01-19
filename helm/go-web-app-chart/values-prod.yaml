@@ -13,4 +13,5 @@ service:
 ingress:
   enabled: true
   className: nginx
+  host: prod.go-web-app.local
 

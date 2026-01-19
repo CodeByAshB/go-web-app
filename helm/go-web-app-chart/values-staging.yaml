@@ -13,4 +13,5 @@ service:
 ingress:
   enabled: true
   className: nginx
+  host: staging.go-web-app.local
 

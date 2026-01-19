@@ -3,9 +3,10 @@ kind: Ingress
 metadata:
   name: go-web-app-ingress
 spec:
-  ingressClassName: {{ .Values.ingress.className }}
+  ingressClassName: nginx
   rules:
-    - http:
+    - host: {{ .Values.ingress.host }}
+      http:
         paths:
           - path: /
             pathType: Prefix
