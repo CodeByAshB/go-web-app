@@ -1,0 +1,16 @@
+replicaCount: 2
+
+image:
+  repository: public.ecr.aws/o9g6t1r4/go-web-app
+  tag: "11"        # ✅ MUST exist in Public ECR
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+
+ingress:
+  enabled: true
+  className: nginx
+
