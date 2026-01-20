@@ -63,7 +63,7 @@ jobs:
       - name: Update Prod Image Tag
         if: github.ref == 'refs/heads/main'
         run: |
-          IMAGE_TAG=${{ github.run_number }}
+          IMAGE_TAG="11" 
           echo "Updating prod image tag to $IMAGE_TAG"
 
           sed -i "s/tag:.*/tag: \"$IMAGE_TAG\"/" helm/go-web-app-chart/values-prod.yaml
