@@ -2,7 +2,7 @@ replicaCount: 3
 
 image:
   repository: public.ecr.aws/o9g6t1r4/go-web-app
-  tag: "11"        # ✅ MUST exist in Public ECR
+  tag: "11"
   pullPolicy: Always
 
 service:
