@@ -1,4 +1,4 @@
-replicaCount: 2
+replicaCount: 3
 
 image:
   repository: public.ecr.aws/o9g6t1r4/go-web-app
@@ -12,6 +12,6 @@ service:
 
 ingress:
   enabled: true
-  className: nginx
+  className: traefik
   host: prod.go-web-app.local
 
