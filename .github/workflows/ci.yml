@@ -14,7 +14,8 @@ env:
 jobs:
   build-push-deploy:
     runs-on: self-hosted
-
+    permissions:
+      contents: write
     steps:
       # 1. Checkout code
       - name: Checkout repository
